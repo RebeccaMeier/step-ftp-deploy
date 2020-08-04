@@ -59,8 +59,9 @@ curl -u $USERNAME:$PASSWORD  $DESTINATION/$REMOTE_FILE -o $WERCKER_CACHE_DIR/rem
 sort -k 2 -u $WERCKER_CACHE_DIR/remote.txt -o $WERCKER_CACHE_DIR/remote.txt > /dev/null
 
 debug "Find files that are new"
-cut -d' ' -f3 $WERCKER_CACHE_DIR/remote.txt > $WERCKER_CACHE_DIR/remote_files.txt
-cut -d' ' -f3 $WERCKER_CACHE_DIR/local.txt > $WERCKER_CACHE_DIR/local_files.txt
+# Remove the md5sum
+cut -c 35- $WERCKER_CACHE_DIR/remote.txt > $WERCKER_CACHE_DIR/remote_files.txt
+cut -c 35- $WERCKER_CACHE_DIR/local.txt > $WERCKER_CACHE_DIR/local_files.txt
 diff --ignore-case -b --ignore-blank-lines  --old-line-format='' --new-line-format='%l
 ' --unchanged-line-format=''  $WERCKER_CACHE_DIR/remote_files.txt  $WERCKER_CACHE_DIR/local_files.txt | tee $WERCKER_CACHE_DIR/new.txt > /dev/null
 sed -i '/^$/d' $WERCKER_CACHE_DIR/new.txt

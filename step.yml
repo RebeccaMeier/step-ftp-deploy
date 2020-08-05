@@ -7,21 +7,21 @@ keywords:
   - md5sum
   - output
 properties:
-  destination:
+  - name: destination
     type: string
     required: true
-  username:
+  - name: username
     type: string
     required: true
-  password:
+  - name: password
     type: string
     required: true
-  subfolder:
+  - name: subfolder
     type: string
     required: true
-  remote-file:
+  - name: remote-file
     type: string
     required: false
-  timeout:
+  - name: timeout
     type: string
     required: false
